@@ -65,8 +65,12 @@ var (
 
 func createStatus(c *cli.Context) error {
 	sha := c.String(shaFlag)
+	org, repo, err := splitFullname(c.String(repoFlag))
+	if err != nil {
+		return err
+	}
 	status := createRepoStatus(c)
-	_, _, err := createClient(c.String(accessTokenFlag)).Repositories.CreateStatus(context.Background(), "bigkevmcd", "taxi-stage-config", sha, status)
+	_, _, err = createClient(c.String(githubTokenFlag)).Repositories.CreateStatus(context.Background(), org, repo, sha, status)
 
 	return err
 }

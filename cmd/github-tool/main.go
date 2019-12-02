@@ -11,16 +11,16 @@ import (
 )
 
 const (
-	accessTokenFlag = "access-token"
+	githubTokenFlag = "github-token"
 )
 
 var (
 	globalFlags = []cli.Flag{
 		&cli.StringFlag{
-			Name:     accessTokenFlag,
+			Name:     githubTokenFlag,
 			Value:    "",
 			Usage:    "oauth access token to authenticate the request",
-			EnvVars:  []string{"STATUS_ACCESS_TOKEN"},
+			EnvVars:  []string{"GITHUB_TOKEN"},
 			Required: true,
 		},
 	}
