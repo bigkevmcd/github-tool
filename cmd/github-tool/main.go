@@ -5,7 +5,8 @@ import (
 	"log"
 	"os"
 
-	"github.com/google/go-github/v28/github"
+	"github.com/jenkins-x/go-scm/scm"
+	"github.com/jenkins-x/go-scm/scm/driver/github"
 	"github.com/urfave/cli/v2"
 	"golang.org/x/oauth2"
 )
@@ -45,13 +46,11 @@ func main() {
 	}
 }
 
-func createClient(token string) *github.Client {
-	ctx := context.Background()
+func createClient(token string) *scm.Client {
+	client := github.NewDefault()
 	ts := oauth2.StaticTokenSource(
 		&oauth2.Token{AccessToken: token},
 	)
-	tc := oauth2.NewClient(ctx, ts)
-
-	client := github.NewClient(tc)
+	client.Client = oauth2.NewClient(context.Background(), ts)
 	return client
 }

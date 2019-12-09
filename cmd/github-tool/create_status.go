@@ -2,10 +2,8 @@ package main
 
 import (
 	"context"
-	"errors"
-	"strings"
 
-	"github.com/google/go-github/v28/github"
+	"github.com/jenkins-x/go-scm/scm"
 	"github.com/urfave/cli/v2"
 )
 
@@ -44,7 +42,7 @@ var (
 			Value:    "",
 			Usage:    "The target URL to associate with this status. This URL will be linked from the GitHub UI to allow users to easily see the source of the status.",
 			EnvVars:  []string{"STATUS_TARGET_URL"},
-			Required: true,
+			Required: false,
 		},
 		&cli.StringFlag{
 			Name:     descriptionFlag,
@@ -65,29 +63,36 @@ var (
 
 func createStatus(c *cli.Context) error {
 	sha := c.String(shaFlag)
-	org, repo, err := splitFullname(c.String(repoFlag))
-	if err != nil {
-		return err
-	}
+	repo := c.String(repoFlag)
+	token := c.String(githubTokenFlag)
 	status := createRepoStatus(c)
-	_, _, err = createClient(c.String(githubTokenFlag)).Repositories.CreateStatus(context.Background(), org, repo, sha, status)
-
+	_, _, err := createClient(token).Repositories.CreateStatus(context.Background(), repo, sha, status)
 	return err
 }
 
-func createRepoStatus(c *cli.Context) *github.RepoStatus {
-	return &github.RepoStatus{
-		TargetURL:   github.String(c.String(targetURLFlag)),
-		State:       github.String(c.String(stateFlag)),
-		Context:     github.String(c.String(contextFlag)),
-		Description: github.String(c.String(descriptionFlag)),
+func createRepoStatus(c *cli.Context) *scm.StatusInput {
+	si := &scm.StatusInput{
+		State: convertState(c.String(stateFlag)),
+		Label: c.String(contextFlag),
+		Desc:  c.String(descriptionFlag),
 	}
+	if targetURL := c.String(targetURLFlag); targetURL != "" {
+		si.Target = targetURL
+	}
+	return si
 }
 
-func splitFullname(s string) (string, string, error) {
-	seg := strings.Split(s, "/")
-	if len(seg) != 2 {
-		return "", "", errors.New("fullname must be owner/repo")
+func convertState(s string) scm.State {
+	switch s {
+	case "error":
+		return scm.StateError
+	case "failure":
+		return scm.StateFailure
+	case "pending":
+		return scm.StatePending
+	case "success":
+		return scm.StateSuccess
+	default:
+		return scm.StateUnknown
 	}
-	return seg[0], seg[1], nil
 }
