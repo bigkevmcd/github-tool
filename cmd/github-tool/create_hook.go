@@ -51,6 +51,7 @@ func createHook(c *cli.Context) error {
 	return err
 }
 
+// TODO: Allow configuration of SkipVerify.
 func createHookInput(c *cli.Context) *scm.HookInput {
 	hi := &scm.HookInput{
 		Name:       c.String(nameFlag),

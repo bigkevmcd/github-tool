@@ -39,7 +39,7 @@ func main() {
 				Action: createStatus,
 			},
 			{
-				Name:   "create-webook",
+				Name:   "create-webhook",
 				Usage:  "create a new webhook",
 				Flags:  createHookFlags,
 				Action: createHook,
