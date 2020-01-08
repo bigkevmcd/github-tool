@@ -6,5 +6,5 @@ RUN go build ./cmd/github-tool
 
 FROM registry.access.redhat.com/ubi8/ubi-minimal
 WORKDIR /root/
-COPY --from=build /go/build/github-tool .
-ENTRYPOINT ["./github-tool"]
+COPY --from=build /go/build/github-tool /usr/local/bin
+ENTRYPOINT ["/usr/local/bin/github-tool"]
