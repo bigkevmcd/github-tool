@@ -38,6 +38,12 @@ func main() {
 				Flags:  createStatusFlags,
 				Action: createStatus,
 			},
+			{
+				Name:   "create-webook",
+				Usage:  "create a new webhook",
+				Flags:  createHookFlags,
+				Action: createHook,
+			},
 		},
 		Flags: globalFlags,
 	}

@@ -8,10 +8,8 @@ import (
 )
 
 var (
-	repoFlag        = "repo"
 	shaFlag         = "sha"
 	stateFlag       = "state"
-	targetURLFlag   = "target-url"
 	descriptionFlag = "description"
 	contextFlag     = "context"
 
