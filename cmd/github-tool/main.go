@@ -29,6 +29,8 @@ var (
 
 func main() {
 	app := &cli.App{
+		Name:  "github-tool",
+		Usage: "command-line access to GitHub",
 		Commands: []*cli.Command{
 			{
 				Name:   "create-status",
