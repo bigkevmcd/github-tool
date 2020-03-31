@@ -20,3 +20,5 @@ All options can be configured from the environment.
 ## docker image
 
   There is a Docker image at `quay.io/kmcdermo/github-tool`
+
+## Testing documentation
