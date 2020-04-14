@@ -12,12 +12,8 @@ format:
   rules:
     - if: vars.CI_BRANCH_NAME != 'master'
       when: never
-  script:
-    - go mod download
-    - go fmt ./...
-    - go vet ./...
-    - ./bin/golangci-lint run
-    - go test -race ./...
+  tekton:
+    taskRef: tekton-task
 
 compile:
   stage: build
