@@ -6,12 +6,8 @@ tekton:
 before_script:
   - wget -O- -nv https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s v1.24.0
 
-stages:
-  - test
-  - build
-
-format:
-  stage: test
+build-image:
+  stage: build
   rules:
     - if: vars.CI_COMMIT_BRANCH != 'master'
       when: never
