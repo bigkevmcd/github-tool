@@ -13,7 +13,7 @@ format:
     - if: vars.CI_COMMIT_BRANCH != 'master'
       when: never
   tekton:
-    taskRef: tekton-task
+    taskRef: go-test-task
 
 compile:
   stage: build
