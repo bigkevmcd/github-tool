@@ -18,7 +18,7 @@ format:
     params:
      - name: IMAGE_URL
        param: BUILDER_IMAGE
-       expr: quay.io/kmcdermo/github-tool2
+       expr: "quay.io/kmcdermo/github-tool2"
 compile:
   stage: build
   script:
