@@ -15,14 +15,8 @@ format:
       when: never
   tekton:
     taskRef: buildah-task
+    serviceAccountName: tekton-ci
     params:
      - name: IMAGE_URL
        param: BUILDER_IMAGE
-       expr: "'quay.io/kmcdermo/github-tool2'"
-compile:
-  stage: build
-  script:
-    - go build -race -ldflags "-extldflags '-static'" -o testing ./cmd/github-tool
-  artifacts:
-    paths:
-      - github-tool
+       expr: "'quay.io/bigkevmcd/github-tool'"
