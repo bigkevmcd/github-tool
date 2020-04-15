@@ -14,8 +14,11 @@ format:
     - if: vars.CI_COMMIT_BRANCH != 'master'
       when: never
   tekton:
-    taskRef: go-test-task
-
+    taskRef: buildah-task
+    params:
+     - name: IMAGE_URL
+       param: BUILDER_IMAGE
+       expr: quay.io/kmcdermo/github-tool2
 compile:
   stage: build
   script:
