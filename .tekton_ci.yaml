@@ -1,13 +1,7 @@
-# This is just a comment.
-image: golang:latest
 tekton:
   serviceAccountName: tekton-ci
 
-before_script:
-  - wget -O- -nv https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s v1.24.0
-
 build-image:
-  stage: build
   rules:
     - if: vars.CI_COMMIT_BRANCH != 'master'
       when: never
@@ -16,4 +10,4 @@ build-image:
     params:
      - name: IMAGE_URL
        param: BUILDER_IMAGE
-       expr: "'quay.io/bigkevmcd/github-tool'"
+       expr: "'quay.io/bigkevmcd/github-tool:' + vars.CI_COMMIT_SHORT_SHA"
