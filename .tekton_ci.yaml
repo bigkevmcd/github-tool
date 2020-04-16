@@ -3,21 +3,13 @@ image: golang:latest
 tekton:
   serviceAccountName: tekton-ci
 
-before_script:
-  - wget -O- -nv https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s v1.24.0
-
 stages:
   - test
   - update-image
   
 test-go:
   stage: test
-  script:
-    - go mod download
-    - go fmt ./...
-    - go vet ./...
-    - ./bin/golangci-lint run
-    - go test -race ./...  
+  taskRef: go-test-task
 
 build-image:
   stage: update-image
@@ -25,7 +17,7 @@ build-image:
     - if: vars.CI_COMMIT_BRANCH != 'master'
       when: never
   tekton:
-    taskRef: buildah
+    taskRef: buildah-task
     params:
-     - name: IMAGE
+     - name: IMAGE_URL
        expr: "'quay.io/bigkevmcd/github-tool:' + vars.CI_COMMIT_SHORT_SHA"
