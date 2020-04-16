@@ -14,7 +14,7 @@ func TestConvertState(t *testing.T) {
 		{"error", scm.StateError},
 		{"failure", scm.StateFailure},
 		{"pending", scm.StatePending},
-		{"success", scm.StateSuccess},
+		{"success", scm.StatePending},
 		{"this", scm.StateUnknown},
 	}
 
