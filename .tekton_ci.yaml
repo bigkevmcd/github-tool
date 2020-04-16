@@ -16,7 +16,7 @@ build-image:
     - if: vars.CI_COMMIT_BRANCH != 'master'
       when: never
   tekton:
-    taskRef: buildah-task
+    taskRef: buildah
     params:
-     - name: IMAGE_URL
-       expr: "'quay.io/bigkevmcd/github-tool:master:' + vars.CI_COMMIT_SHORT_SHA"
+     - name: IMAGE
+       expr: "'quay.io/bigkevmcd/github-tool:master-' + vars.CI_COMMIT_SHORT_SHA"
