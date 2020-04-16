@@ -19,4 +19,4 @@ build-image:
     taskRef: buildah-task
     params:
      - name: IMAGE_URL
-       expr: "'quay.io/bigkevmcd/github-tool:' + vars.CI_COMMIT_SHORT_SHA"
+       expr: "'quay.io/bigkevmcd/github-tool:master' + vars.CI_COMMIT_SHORT_SHA"
