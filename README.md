@@ -16,7 +16,6 @@ All options can be configured from the environment.
  ./github-tool --github-token <github access token> create-webhook --repo bigkevmcd/github-tool --name "My Test Hook" --target-url https://example.com/testing --secret "This is a test"
   ```
 
+## Docker image
 
-## docker image
-
-  There is a Docker image at `quay.io/kmcdermo/github-tool`
+There is a Docker image at `bigkevmcd/github-tool:latest`
