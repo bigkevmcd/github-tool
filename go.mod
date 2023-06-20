@@ -21,5 +21,5 @@ require (
 	golang.org/x/sys v0.5.0 // indirect
 	google.golang.org/appengine v1.6.7 // indirect
 	google.golang.org/protobuf v1.28.0 // indirect
-	k8s.io/apimachinery v0.0.0-20190703205208-4cfb76a8bf76 // indirect
+	k8s.io/apimachinery v0.15.7 // indirect
 )
